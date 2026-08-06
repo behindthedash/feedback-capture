@@ -6,7 +6,12 @@ on:
     paths:
       - '.github/rulesets/**'
       - 'scripts/ci/rulesets/**'
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: 'Push committed rulesets to live GitHub state (write), instead of just checking for drift'
+        type: boolean
+        default: false
   schedule:
     # Weekly drift check to catch out-of-band GitHub UI edits.
     - cron: '0 9 * * 1'
@@ -49,7 +54,12 @@ jobs:
           client-id: ${{ vars.RELEASE_NOTES_APP_ID }}
           private-key: ${{ secrets.RELEASE_NOTES_APP_PRIVATE_KEY }}
 
-      - name: Check committed rulesets against live GitHub rulesets
+      - name: Sync rulesets against live GitHub state
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-        run: python scripts/ci/rulesets/rulesets_sync.py --check
+        run: |
+          if [ "${{ inputs.apply == true }}" = "true" ]; then
+            python scripts/ci/rulesets/rulesets_sync.py --apply
+          else
+            python scripts/ci/rulesets/rulesets_sync.py --check
+          fi
