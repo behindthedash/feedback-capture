@@ -16,7 +16,7 @@ Usage::
 
 ``--check`` exits non-zero if any committed ruleset differs from its live
 counterpart (use as a CI guard); ``--apply`` pushes the committed JSON over
-the live ruleset.
+the live ruleset, creating it first if no live ruleset of that name exists yet.
 """
 import argparse
 import json
@@ -186,7 +186,12 @@ def main(argv=None) -> int:
         live = find_live_ruleset(name, live_rulesets)
         if live is None:
             missing.append(name)
-            print(f"MISSING LIVE: '{name}' has no live ruleset on {repo}", file=sys.stderr)
+            if args.apply:
+                body = {k: v for k, v in local.items() if k not in ("id", "_id")}
+                gh_api(f"/repos/{repo}/rulesets", token, method="POST", payload=body)
+                print(f"created: {name}")
+            else:
+                print(f"MISSING LIVE: '{name}' has no live ruleset on {repo}", file=sys.stderr)
             continue
 
         live_full = gh_api(f"/repos/{repo}/rulesets/{live['id']}", token)

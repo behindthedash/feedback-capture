@@ -156,6 +156,35 @@ def test_missing_live_ruleset_reports_and_fails_check(tmp_path, capsys):
     assert "missing live" in capsys.readouterr().err
 
 
+def test_apply_creates_when_missing(tmp_path, capsys):
+    _write_local(tmp_path, "protect-main", ["test"])
+
+    calls = []
+
+    def fake_gh_api(path, token, method="GET", payload=None):
+        calls.append((path, method, payload))
+        if path.endswith("/rulesets") and method == "GET":
+            return []
+        if path.endswith("/rulesets") and method == "POST":
+            assert payload is not None
+            return {"id": 99, **payload}
+        raise AssertionError(f"unexpected call: {method} {path}")
+
+    with mock.patch.object(rs, "gh_api", side_effect=fake_gh_api), \
+         mock.patch.object(rs, "resolve_token", return_value="tok"), \
+         mock.patch.object(rs, "resolve_repo", return_value="owner/repo"):
+        code = rs.main(["--apply", "--dir", str(tmp_path)])
+
+    assert code == 0
+    posts = [c for c in calls if c[1] == "POST"]
+    assert len(posts) == 1
+    post_path, _, post_payload = posts[0]
+    assert post_path == "/repos/owner/repo/rulesets"
+    assert post_payload["name"] == "protect-main"
+    assert "id" not in post_payload
+    assert "created: protect-main" in capsys.readouterr().out
+
+
 def test_committed_rulesets_match_repo_rulesets_dir():
     """The real .github/rulesets/ files parse and canonicalize cleanly."""
     rulesets_dir = _REPO / ".github" / "rulesets"
