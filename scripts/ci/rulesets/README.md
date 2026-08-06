@@ -13,7 +13,8 @@ copy — someone still has to push it to the live ruleset via the API.
 # Fail if any committed ruleset differs from what's live on GitHub:
 python scripts/ci/rulesets/rulesets_sync.py --check
 
-# Push committed rulesets over the live ones:
+# Push committed rulesets over the live ones (creates a live ruleset
+# first if none exists yet under that name):
 python scripts/ci/rulesets/rulesets_sync.py --apply
 ```
 
@@ -35,15 +36,27 @@ instead.
 ## When to run `--apply`
 
 **After every merge that changes a file under `.github/rulesets/`, someone
-must run `--apply` manually** — merging the PR alone does not update GitHub's
+must run `--apply`** — merging the PR alone does not update GitHub's
 live branch protection. `--apply` is deliberately **not** run automatically
 post-merge: applying a tightened ruleset could immediately block the very
 push/PR that's applying it (e.g. a new required check that hasn't reported
-yet), so it stays a manual step until that chicken-and-egg case is handled.
+yet), so it stays a manual trigger until that chicken-and-egg case is handled.
 
 CI (`.github/workflows/rulesets_drift_guard.yml`) runs `--check` on every PR
 that touches `.github/rulesets/**` and fails the build on drift — that's the
 signal that a `--apply` is owed, not something CI performs for you.
+
+Trigger the apply from CI (no local key handling needed — the workflow mints
+its own App token, same as `--check` does):
+
+```bash
+gh workflow run rulesets_drift_guard.yml -f apply=true
+```
+
+Running `rulesets_sync.py --apply` locally still works if you have a valid
+`GITHUB_TOKEN`/App-minted token, but classic `gh auth token` OAuth tokens 404
+on the Rulesets write endpoint — the CI-triggered path above is the reliable
+default.
 
 ## Cross-repo
 
