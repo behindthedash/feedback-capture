@@ -34,14 +34,14 @@ status appears on the pull request.
 
 ## Acceptance Criteria
 
-- [ ] Opening a pull request targeting `main` automatically starts the validation run with no manual action required (AC-001)
-- [ ] Pushing additional commits to an open pull request's branch triggers a new validation run against the updated commit (AC-002)
-- [ ] Dependencies are installed from the committed lockfile (a reproducible install), not a fresh dependency resolution (AC-004)
-- [ ] A pull request that introduces a type error causes the run to fail (AC-006)
-- [ ] A pull request with no type errors causes the type-checking step to succeed (AC-007)
-- [ ] A pull request that breaks an existing test causes the run to fail (AC-008)
-- [ ] A pull request that keeps the full test suite passing (with the opt-in integration test still skipped, as it is today with no database configured) causes the run to succeed (AC-009)
-- [ ] The run reports one merge-relevant pass/fail signal on the pull request, not several ambiguous ones (AC-011)
+- [x] Opening a pull request targeting `main` automatically starts the validation run with no manual action required (AC-001)
+- [x] Pushing additional commits to an open pull request's branch triggers a new validation run against the updated commit (AC-002)
+- [x] Dependencies are installed from the committed lockfile (a reproducible install), not a fresh dependency resolution (AC-004)
+- [x] A pull request that introduces a type error causes the run to fail (AC-006)
+- [x] A pull request with no type errors causes the type-checking step to succeed (AC-007)
+- [x] A pull request that breaks an existing test causes the run to fail (AC-008)
+- [x] A pull request that keeps the full test suite passing (with the opt-in integration test still skipped, as it is today with no database configured) causes the run to succeed (AC-009)
+- [x] The run reports one merge-relevant pass/fail signal on the pull request, not several ambiguous ones (AC-011)
 
 ## Definition of Ready (DoR)
 
@@ -138,14 +138,14 @@ e2e task); this task's own verification is what can be checked before pushing an
 ## Definition of Done (DoD)
 
 This task is complete when:
-- [ ] `.github/workflows/ci.yml` exists with the trigger, permissions, and step sequence
+- [x] `.github/workflows/ci.yml` exists with the trigger, permissions, and step sequence
   described above.
-- [ ] All acceptance criteria listed above are satisfied by the file's content (evidence:
+- [x] All acceptance criteria listed above are satisfied by the file's content (evidence:
   the file itself, since no code execution is required to confirm structure).
-- [ ] The workflow-definition checks in Test Instructions have been performed and pass.
-- [ ] No existing file (`package.json`, `vitest.config.ts`, or any `src/**` file) was
+- [x] The workflow-definition checks in Test Instructions have been performed and pass.
+- [x] No existing file (`package.json`, `vitest.config.ts`, or any `src/**` file) was
   modified — this task creates exactly one new file.
-- [ ] TASK-002 (e2e) can proceed: the workflow file is committed so a real pull request can
+- [x] TASK-002 (e2e) can proceed: the workflow file is committed so a real pull request can
   trigger it.
 
 **Dependencies**: None
