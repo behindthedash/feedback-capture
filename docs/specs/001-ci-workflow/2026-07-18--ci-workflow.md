@@ -2,7 +2,7 @@
 
 **Spec ID**: 001-ci-workflow
 **Date**: 2026-07-18
-**Status**: Draft
+**Status**: Implemented
 **Version**: 1.0
 **Feature Summary**: Gives contributors and maintainers of `briankudera/feedback-capture` an
 automated pass/fail check — type validation plus the existing test suite — on every pull
