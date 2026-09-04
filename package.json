@@ -30,7 +30,7 @@
   "dependencies": {
     "@medv/finder": "^4.0.2",
     "modern-screenshot": "^4.7.0",
-    "lucide-react": "^1.33.0",
+    "lucide-react": "^1.34.0",
     "drizzle-orm": "^0.45.2"
   },
   "devDependencies": {
