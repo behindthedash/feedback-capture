@@ -10,3 +10,10 @@ pre_pr_cmd: "npm run typecheck && npm test"
 # skip pre_pr_cmd for them specifically.
 docs_only_paths:
   - "docs/specs/**"
+
+# GitHub-native auto-merge (.github/workflows/worktrail-auto-merge.yml):
+# go:risk-low/medium PRs and Dependabot patch/minor bumps merge on green CI;
+# high risk and Dependabot majors stay human-gated.
+automerge:
+  enabled: true
+  max_risk: medium
