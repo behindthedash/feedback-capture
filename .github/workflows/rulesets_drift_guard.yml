@@ -49,7 +49,7 @@ jobs:
       # a token from the App already installed for bot automation instead.
       - name: Generate rulesets-check bot token
         id: app-token
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@v3.2.0
         with:
           client-id: ${{ vars.RELEASE_NOTES_APP_ID }}
           private-key: ${{ secrets.RELEASE_NOTES_APP_PRIVATE_KEY }}
