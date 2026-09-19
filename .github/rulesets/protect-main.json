@@ -31,6 +31,9 @@
         "required_status_checks": [
           {
             "context": "Lint, Test & Build"
+          },
+          {
+            "context": "gitleaks-pr-diff"
           }
         ]
       }
