@@ -4,7 +4,13 @@
 
 # Fastest command mirroring this repo's CI merge gate (spec 001-ci-workflow:
 # .github/workflows/ci.yml runs `npm ci` -> `npm run typecheck` -> `npm test`).
-pre_pr_cmd: "npm run typecheck && npm test"
+pre_pr_cmd: "([ -d node_modules ] || npm ci) && npm run typecheck && npm test"
+
+# worktree_bootstrap_cmd: run once per fanned-out task worktree right after
+# `git worktree add`, before the worker is spawned into it — task worktrees
+# share `.git` but not the gitignored node_modules/, so without this a fresh
+# worktree fails the gate before testing anything.
+worktree_bootstrap_cmd: "npm ci"
 
 # Spec-authoring PRs (this repo's docs/specs/ tree) never touch source —
 # skip pre_pr_cmd for them specifically.
