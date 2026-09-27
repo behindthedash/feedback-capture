@@ -1,0 +1,302 @@
+{
+  ".github/rulesets/protect-main.json": {
+    "mtime": 1790487068.7122972,
+    "ast_hash": "be0007f52f5de44e2413a7e80ea463fd",
+    "semantic_hash": ""
+  },
+  "docs/specs/001-ci-workflow/knowledge-graph.json": {
+    "mtime": 1790487068.713471,
+    "ast_hash": "472c896abe48941ca875839bafc92157",
+    "semantic_hash": ""
+  },
+  "migrations/0001_feedback_request.sql": {
+    "mtime": 1790487068.7137637,
+    "ast_hash": "a82c4bc18e22adb8a0e4d3dcb67c42bc",
+    "semantic_hash": ""
+  },
+  "package.json": {
+    "mtime": 1790487068.7149916,
+    "ast_hash": "3096270410f334d0626554248a3a7d76",
+    "semantic_hash": ""
+  },
+  "scripts/ci/check_gitleaks_signal_integrity.py": {
+    "mtime": 1790487068.71551,
+    "ast_hash": "e2bc495670d3544e4bc39ec2c87be602",
+    "semantic_hash": ""
+  },
+  "scripts/ci/rulesets/rulesets_sync.py": {
+    "mtime": 1790487068.7156897,
+    "ast_hash": "d0339efe6a8eb40b17a4b92b24a612e1",
+    "semantic_hash": ""
+  },
+  "scripts/ci/rulesets/test_rulesets_sync.py": {
+    "mtime": 1790487068.7156897,
+    "ast_hash": "4e52158582edd8f3698d0628fccc7069",
+    "semantic_hash": ""
+  },
+  "scripts/ci/test_check_gitleaks_signal_integrity.py": {
+    "mtime": 1790487068.7156897,
+    "ast_hash": "3ec87585559422a18173bb14c8ec8ace",
+    "semantic_hash": ""
+  },
+  "src/__tests__/auth-types.test.ts": {
+    "mtime": 1790487068.7160473,
+    "ast_hash": "b9a3e6c4e82c91172120027cf55c8611",
+    "semantic_hash": ""
+  },
+  "src/__tests__/delivery-sink.test.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "8f17926e69c99b7bb3f3fae36ac68c56",
+    "semantic_hash": ""
+  },
+  "src/__tests__/feedback-capture.test.tsx": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "716abfe6e5d829b6c81c89f737b37bcc",
+    "semantic_hash": ""
+  },
+  "src/__tests__/feedback-request-schema.test.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "a3d8660f7cb5f9d25826dda4f0b4a120",
+    "semantic_hash": ""
+  },
+  "src/__tests__/migration.integration.test.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "10629f7bc678ee7eda3a541decbdf963",
+    "semantic_hash": ""
+  },
+  "src/__tests__/repository.test.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "be6424bae860807bf63f19caefd50bc3",
+    "semantic_hash": ""
+  },
+  "src/__tests__/route-handlers.test.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "bca296c73d0747033ea6b85955be8dba",
+    "semantic_hash": ""
+  },
+  "src/__tests__/schema.test.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "5b7e4c1f4094672d4c04fe2aa2592d5e",
+    "semantic_hash": ""
+  },
+  "src/auth-types.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "1c97073be9a9290b3eb5404010dc1d2b",
+    "semantic_hash": ""
+  },
+  "src/constants.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "536a1284c6d1d5191daf27b0918d1ba0",
+    "semantic_hash": ""
+  },
+  "src/css-modules.d.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "6125c5a961c654939dd95a026d703a8b",
+    "semantic_hash": ""
+  },
+  "src/delivery-sink.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "163f90aed9359723be939e0727e9a408",
+    "semantic_hash": ""
+  },
+  "src/feedback-capture.tsx": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "d48597bf83fb872f3f9a41e6c3edd0ca",
+    "semantic_hash": ""
+  },
+  "src/index.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "ffc0fe6fa5a4debc4c27ab6a4556746d",
+    "semantic_hash": ""
+  },
+  "src/payload-schema.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "462b2a5531ed40da6139095f6e77105e",
+    "semantic_hash": ""
+  },
+  "src/repository.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "1aefb059a9884185a3074b3a58fbb996",
+    "semantic_hash": ""
+  },
+  "src/route-handlers.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "0d5ce4fdbc194676364549228da1e94e",
+    "semantic_hash": ""
+  },
+  "src/schema/feedback-request.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "6598e22d0f0d95b818b83c0365e89aaa",
+    "semantic_hash": ""
+  },
+  "src/test/setup.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "3709e3aa95abf0544678f0f2d9b46702",
+    "semantic_hash": ""
+  },
+  "src/validation-helpers.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "0258df2841023bdb1cda728188af6699",
+    "semantic_hash": ""
+  },
+  "tsconfig.json": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "27e2e0434760ef4b6c20634e0500b818",
+    "semantic_hash": ""
+  },
+  "vitest.config.ts": {
+    "mtime": 1790487068.716102,
+    "ast_hash": "4681a198b546f472be0077f5e0b2e3b4",
+    "semantic_hash": ""
+  },
+  ".github/dependabot.yml": {
+    "mtime": 1790487068.7116203,
+    "ast_hash": "5727582d4a90b3bf97df7ca0696044e4",
+    "semantic_hash": ""
+  },
+  ".github/workflows/ci.yml": {
+    "mtime": 1790487068.7122972,
+    "ast_hash": "0e295533dd7a88adcfd837cd60bd9692",
+    "semantic_hash": ""
+  },
+  ".github/workflows/gitleaks.yml": {
+    "mtime": 1790487068.7124765,
+    "ast_hash": "bc7f7b51686830e01fb3bf6957f68825",
+    "semantic_hash": ""
+  },
+  ".github/workflows/rulesets_drift_guard.yml": {
+    "mtime": 1790487068.7124765,
+    "ast_hash": "b2ba7ec7627a50cbc760eb94cae429ea",
+    "semantic_hash": ""
+  },
+  ".github/workflows/worktrail-auto-merge.yml": {
+    "mtime": 1790487068.7124765,
+    "ast_hash": "17e80ecacf9893fab58171edb1cabd16",
+    "semantic_hash": ""
+  },
+  ".worktrail/policy.yaml": {
+    "mtime": 1790487068.7124765,
+    "ast_hash": "1f25df8f66194aba2579ac6cfd594448",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1790487068.7124765,
+    "ast_hash": "6e963916efd3316cd7b5aea2a6af3f92",
+    "semantic_hash": ""
+  },
+  "docs/specs/001-ci-workflow/2026-07-18--ci-workflow--tasks.md": {
+    "mtime": 1790487068.713037,
+    "ast_hash": "fa1a28d51d580b51f45322eb02f49a32",
+    "semantic_hash": ""
+  },
+  "docs/specs/001-ci-workflow/2026-07-18--ci-workflow.md": {
+    "mtime": 1790487068.7131813,
+    "ast_hash": "e50bf24326668754bcb89d33917f8044",
+    "semantic_hash": ""
+  },
+  "docs/specs/001-ci-workflow/brainstorming-notes.md": {
+    "mtime": 1790487068.7131813,
+    "ast_hash": "8ed072698aa59eaa6b6cf05ac96868e1",
+    "semantic_hash": ""
+  },
+  "docs/specs/001-ci-workflow/contracts/pull-request-trigger.event.md": {
+    "mtime": 1790487068.7131813,
+    "ast_hash": "47b31cefea12a4bb5d3a4b1a13dba027",
+    "semantic_hash": ""
+  },
+  "docs/specs/001-ci-workflow/contracts/status-check.md": {
+    "mtime": 1790487068.713471,
+    "ast_hash": "134e611684984f30f4bbd82ab9ecffa2",
+    "semantic_hash": ""
+  },
+  "docs/specs/001-ci-workflow/data-model.md": {
+    "mtime": 1790487068.713471,
+    "ast_hash": "00602839a5a9b8d0782ee444bb4ef7e1",
+    "semantic_hash": ""
+  },
+  "docs/specs/001-ci-workflow/decision-log.md": {
+    "mtime": 1790487068.713471,
+    "ast_hash": "e3c16ba6a25ec7fdf7a42ee86a3206e1",
+    "semantic_hash": ""
+  },
+  "docs/specs/001-ci-workflow/tasks/TASK-001.md": {
+    "mtime": 1790487068.713471,
+    "ast_hash": "0e4bb0f21cbd8c2fb37047f61e510f7c",
+    "semantic_hash": ""
+  },
+  "docs/specs/001-ci-workflow/tasks/TASK-002.md": {
+    "mtime": 1790487068.7137637,
+    "ast_hash": "5d120be5169330a6d7b1effa925225af",
+    "semantic_hash": ""
+  },
+  "docs/specs/001-ci-workflow/tasks/TASK-003.md": {
+    "mtime": 1790487068.7137637,
+    "ast_hash": "5317a4a8423595439c8c1d517c767b08",
+    "semantic_hash": ""
+  },
+  "docs/specs/001-ci-workflow/traceability-matrix.md": {
+    "mtime": 1790487068.7137637,
+    "ast_hash": "021af1ba0a55625727eb2953d5b52534",
+    "semantic_hash": ""
+  },
+  "docs/specs/001-ci-workflow/user-request.md": {
+    "mtime": 1790487068.7137637,
+    "ast_hash": "d868478c57141d17c9cfb6697c9dde11",
+    "semantic_hash": ""
+  },
+  "docs/specs/architecture.md": {
+    "mtime": 1790487068.7137637,
+    "ast_hash": "ba532d89926b20381015573c0eb2588a",
+    "semantic_hash": ""
+  },
+  "docs/specs/ontology.md": {
+    "mtime": 1790487068.7137637,
+    "ast_hash": "0f4fb96228e6c1eb0853f1f66e13d9c9",
+    "semantic_hash": ""
+  },
+  "openspec/changes/archive/2026-09-26-add-feedback-delivery-sink/.openspec.yaml": {
+    "mtime": 1790487068.7145424,
+    "ast_hash": "eeedaec07b367e2e21bda1c2c5a1be80",
+    "semantic_hash": ""
+  },
+  "openspec/changes/archive/2026-09-26-add-feedback-delivery-sink/design.md": {
+    "mtime": 1790487068.7145424,
+    "ast_hash": "ee7c41927d750044b520c459d96d0a62",
+    "semantic_hash": ""
+  },
+  "openspec/changes/archive/2026-09-26-add-feedback-delivery-sink/proposal.md": {
+    "mtime": 1790487068.7145424,
+    "ast_hash": "be54fecd9098da87b88e8f901b1c6c2c",
+    "semantic_hash": ""
+  },
+  "openspec/changes/archive/2026-09-26-add-feedback-delivery-sink/specs/feedback-delivery-sink/spec.md": {
+    "mtime": 1790487068.7147665,
+    "ast_hash": "920b007667cb5f3d2fd8bbd65678ddbd",
+    "semantic_hash": ""
+  },
+  "openspec/changes/archive/2026-09-26-add-feedback-delivery-sink/tasks.md": {
+    "mtime": 1790487068.7147665,
+    "ast_hash": "c886d29d81b563400e4bbd2dcddf3784",
+    "semantic_hash": ""
+  },
+  "openspec/config.yaml": {
+    "mtime": 1790487068.7147665,
+    "ast_hash": "5b97b9a47c1b7f856873488213a09145",
+    "semantic_hash": ""
+  },
+  "openspec/specs/feedback-delivery-sink/spec.md": {
+    "mtime": 1790487068.7149916,
+    "ast_hash": "106fada57a935c18ad64d88f4a481728",
+    "semantic_hash": ""
+  },
+  "scripts/ci/rulesets/README.md": {
+    "mtime": 1790487068.715636,
+    "ast_hash": "455650f66da5434c84d396b34f3acdf6",
+    "semantic_hash": ""
+  },
+  "scripts/ci/rulesets/requirements.txt": {
+    "mtime": 1790487068.7156897,
+    "ast_hash": "61f9fa4c71b0b27b6073da180495f4bc",
+    "semantic_hash": ""
+  }
+}
