@@ -1,5 +1,6 @@
 import type { z } from "zod";
 import type { ResolveViewer } from "./auth-types";
+import type { FeedbackDeliveryErrorObserver, FeedbackDeliverySink } from "./delivery-sink";
 import { feedbackPayloadSchema } from "./payload-schema";
 import type { FeedbackRepository } from "./repository";
 import { requireJsonContentType, UUID_RE } from "./validation-helpers";
@@ -7,6 +8,8 @@ import { requireJsonContentType, UUID_RE } from "./validation-helpers";
 export type FeedbackHandlerDeps = {
   resolveViewer: ResolveViewer;
   repository: FeedbackRepository;
+  deliverySink?: FeedbackDeliverySink;
+  deliveryErrorObserver?: FeedbackDeliveryErrorObserver;
 };
 
 function json(body: unknown, status: number): Response {
@@ -44,7 +47,12 @@ async function safeResolveViewer(resolveViewer: ResolveViewer, request: Request)
  * mountable from any Next.js App Router route handler (or any other router
  * built on the same primitives) without the package assuming a specific one.
  */
-export function createFeedbackHandlers({ resolveViewer, repository }: FeedbackHandlerDeps) {
+export function createFeedbackHandlers({
+  resolveViewer,
+  repository,
+  deliverySink,
+  deliveryErrorObserver,
+}: FeedbackHandlerDeps) {
   async function create(request: Request): Promise<Response> {
     const contentTypeError = requireJsonContentType(request);
     if (contentTypeError) return json({ error: contentTypeError }, 400);
@@ -67,6 +75,17 @@ export function createFeedbackHandlers({ resolveViewer, repository }: FeedbackHa
     }
 
     const record = await repository.insert(parsed.data, viewer.submittedBy);
+    if (deliverySink) {
+      try {
+        await deliverySink(record);
+      } catch (error) {
+        try {
+          await deliveryErrorObserver?.(error);
+        } catch {
+          // Delivery reporting must not change the successful capture result.
+        }
+      }
+    }
     return json({ id: record.id, status: record.status }, 201);
   }
 
