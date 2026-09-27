@@ -8,6 +8,7 @@ export type { CapabilityProbeResponse, ResolveViewer, ViewerResolution } from ".
 
 export { feedbackRequest } from "./schema/feedback-request";
 export type { FeedbackRecord, FeedbackRepository } from "./repository";
+export type { FeedbackDeliveryErrorObserver, FeedbackDeliverySink } from "./delivery-sink";
 
 export { createFeedbackHandlers } from "./route-handlers";
 export type { FeedbackHandlerDeps } from "./route-handlers";
