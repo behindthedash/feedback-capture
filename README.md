@@ -87,7 +87,60 @@ export const { create, list, setDelivered, delete: remove } = createFeedbackHand
 });
 ```
 
-### 4. Mount the widget
+### 4. Optionally deliver newly captured feedback downstream
+
+Hosts can configure an optional delivery sink when creating the handlers. The
+exported `FeedbackDeliverySink` receives the complete persisted
+`FeedbackRecord` and resolves when its asynchronous delivery work is complete.
+`FeedbackDeliveryErrorObserver` can record or report a sink failure.
+
+```ts
+import {
+  createFeedbackHandlers,
+  type FeedbackDeliveryErrorObserver,
+  type FeedbackDeliverySink,
+} from "feedback-capture";
+import { resolveViewer } from "@/lib/feedback-auth-adapter";
+import { feedbackRepository } from "@/lib/feedback-repository";
+
+const deliverySink: FeedbackDeliverySink = async (record) => {
+  const response = await fetch(process.env.FEEDBACK_DELIVERY_URL!, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(record),
+  });
+  if (!response.ok) throw new Error(`feedback delivery failed: ${response.status}`);
+};
+
+const deliveryErrorObserver: FeedbackDeliveryErrorObserver = (error) => {
+  console.error("Feedback delivery failed", error);
+};
+
+export const { create, list, setDelivered, delete: remove } = createFeedbackHandlers({
+  resolveViewer,
+  repository: feedbackRepository,
+  deliverySink,
+  deliveryErrorObserver,
+});
+```
+
+Delivery happens only after `repository.insert` succeeds, and the sink is
+awaited before the successful create response is returned. A rejected,
+unauthorized, invalid, or otherwise unpersisted capture is never delivered.
+
+If the sink rejects, capture still succeeds: the persisted record and the
+create response are unchanged. The optional error observer is notified, but an
+observer failure is also isolated from capture success. Delivery does not
+change any feedback lifecycle state, including `status`, `delivered`, or
+`deliveredAt`; use the returned `setDelivered` handler when a host intentionally
+updates delivery state.
+
+The host owns the downstream system and its data handling: authenticate and
+authorize that system, decide what record fields may leave the application,
+and implement retry, deduplication, retention, privacy, and monitoring policies
+appropriate to that destination.
+
+### 5. Mount the widget
 
 ```tsx
 import { FeedbackCapture } from "feedback-capture";

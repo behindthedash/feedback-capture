@@ -11,7 +11,7 @@
 
 ## 3. Documentation and verification
 
-- [ ] 3.1 Update `README.md` with the exported delivery contract, factory configuration example, post-persistence semantics, failure behavior, and host responsibility for downstream data handling. (Requirements: Hosts can configure a feedback delivery sink; Delivery follows successful persistence; Sink failures do not reverse capture success; Delivery does not change feedback lifecycle state)
+- [x] 3.1 Update `README.md` with the exported delivery contract, factory configuration example, post-persistence semantics, failure behavior, and host responsibility for downstream data handling. (Requirements: Hosts can configure a feedback delivery sink; Delivery follows successful persistence; Sink failures do not reverse capture success; Delivery does not change feedback lifecycle state)
   files: README.md
 - [ ] 3.2 [e2e] Run `npm test` and `npm run typecheck`, resolving delivery-sink regressions before completion. (Requirements: Hosts can configure a feedback delivery sink; Delivery follows successful persistence; Sink failures do not reverse capture success; Delivery does not change feedback lifecycle state)
   files: none
