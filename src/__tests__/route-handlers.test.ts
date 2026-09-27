@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ResolveViewer } from "../auth-types";
+import type { FeedbackDeliveryErrorObserver, FeedbackDeliverySink } from "../delivery-sink";
 import type { FeedbackRecord, FeedbackRepository } from "../repository";
 import { createFeedbackHandlers } from "../route-handlers";
 
@@ -70,6 +71,136 @@ describe("createFeedbackHandlers", () => {
       );
       const insertedPayload = (repository.insert as ReturnType<typeof vi.fn>).mock.calls[0][0];
       expect(insertedPayload.submittedBy).toBeUndefined();
+    });
+
+    it("preserves create behavior when no delivery sink is configured", async () => {
+      const repository = makeRepository();
+      const { create } = createFeedbackHandlers({ resolveViewer: authorized, repository });
+
+      const response = await create(postRequest(validPayload));
+
+      expect(response.status).toBe(201);
+      await expect(response.json()).resolves.toEqual({
+        id: "11111111-1111-1111-1111-111111111111",
+        status: "new",
+      });
+    });
+
+    it("delivers the persisted record once after it is inserted", async () => {
+      const events: string[] = [];
+      const record = makeRecord({ delivered: false, deliveredAt: null });
+      const repository = makeRepository({
+        insert: vi.fn(async () => {
+          events.push("insert");
+          return record;
+        }),
+      });
+      const deliverySink: FeedbackDeliverySink = vi.fn(async (received) => {
+        events.push("sink");
+        expect(received).toBe(record);
+      });
+      const { create } = createFeedbackHandlers({ resolveViewer: authorized, repository, deliverySink });
+
+      const response = await create(postRequest(validPayload));
+
+      expect(response.status).toBe(201);
+      expect(deliverySink).toHaveBeenCalledTimes(1);
+      expect(events).toEqual(["insert", "sink"]);
+    });
+
+    it("awaits delivery before resolving the successful create response", async () => {
+      let releaseDelivery!: () => void;
+      const deliveryComplete = new Promise<void>((resolve) => {
+        releaseDelivery = resolve;
+      });
+      let signalDeliveryStarted!: () => void;
+      const deliveryStarted = new Promise<void>((resolve) => {
+        signalDeliveryStarted = resolve;
+      });
+      const deliverySink: FeedbackDeliverySink = vi.fn(async () => {
+        signalDeliveryStarted();
+        await deliveryComplete;
+      });
+      const repository = makeRepository();
+      const { create } = createFeedbackHandlers({ resolveViewer: authorized, repository, deliverySink });
+      let resolved = false;
+      const responsePromise = create(postRequest(validPayload)).then((response) => {
+        resolved = true;
+        return response;
+      });
+
+      await deliveryStarted;
+      expect(deliverySink).toHaveBeenCalledOnce();
+      expect(resolved).toBe(false);
+
+      releaseDelivery();
+      expect((await responsePromise).status).toBe(201);
+    });
+
+    it("does not deliver records for rejected captures", async () => {
+      const repository = makeRepository();
+      const deliverySink: FeedbackDeliverySink = vi.fn(async () => undefined);
+      const { create } = createFeedbackHandlers({ resolveViewer: authorized, repository, deliverySink });
+
+      const response = await create(postRequest({ ...validPayload, pageUrl: "" }));
+
+      expect(response.status).toBe(400);
+      expect(repository.insert).not.toHaveBeenCalled();
+      expect(deliverySink).not.toHaveBeenCalled();
+    });
+
+    it("does not change lifecycle state while delivering", async () => {
+      const record = makeRecord({ status: "new", delivered: false, deliveredAt: null });
+      const repository = makeRepository({ insert: vi.fn(async () => record) });
+      const deliverySink: FeedbackDeliverySink = vi.fn(async () => undefined);
+      const { create } = createFeedbackHandlers({ resolveViewer: authorized, repository, deliverySink });
+
+      const response = await create(postRequest(validPayload));
+
+      expect(response.status).toBe(201);
+      expect(deliverySink).toHaveBeenCalledWith(record);
+      expect(record).toMatchObject({ status: "new", delivered: false, deliveredAt: null });
+    });
+
+    it("keeps capture successful and reports a sink failure", async () => {
+      const deliveryFailure = new Error("delivery failed");
+      const repository = makeRepository();
+      const deliverySink: FeedbackDeliverySink = vi.fn(async () => {
+        throw deliveryFailure;
+      });
+      const deliveryErrorObserver: FeedbackDeliveryErrorObserver = vi.fn();
+      const { create } = createFeedbackHandlers({
+        resolveViewer: authorized,
+        repository,
+        deliverySink,
+        deliveryErrorObserver,
+      });
+
+      const response = await create(postRequest(validPayload));
+
+      expect(response.status).toBe(201);
+      expect(deliveryErrorObserver).toHaveBeenCalledWith(deliveryFailure);
+    });
+
+    it("isolates observer failures after a sink failure", async () => {
+      const repository = makeRepository();
+      const deliverySink: FeedbackDeliverySink = vi.fn(async () => {
+        throw new Error("delivery failed");
+      });
+      const deliveryErrorObserver: FeedbackDeliveryErrorObserver = vi.fn(() => {
+        throw new Error("observer failed");
+      });
+      const { create } = createFeedbackHandlers({
+        resolveViewer: authorized,
+        repository,
+        deliverySink,
+        deliveryErrorObserver,
+      });
+
+      const response = await create(postRequest(validPayload));
+
+      expect(response.status).toBe(201);
+      expect(deliveryErrorObserver).toHaveBeenCalledOnce();
     });
 
     it("never calls repository.insert for an unauthorized request", async () => {
