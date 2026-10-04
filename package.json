@@ -31,7 +31,7 @@
     "@medv/finder": "^4.0.2",
     "modern-screenshot": "^4.7.0",
     "lucide-react": "^1.49.0",
-    "drizzle-orm": "^0.45.2"
+    "drizzle-orm": "^0.45.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^7.0.1",
